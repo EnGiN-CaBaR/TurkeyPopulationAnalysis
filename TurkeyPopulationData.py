@@ -1,14 +1,16 @@
-'''
+﻿'''
 Created on Nov 4, 2014
 
 @author: engin
-'''
+'''    
+# coding=utf-8-sig
 
-def getAllTurkeyPopulations():
-    pass
 
-def getTurkeyPopulationsByYears(*years):
-    pass
+def getTurkeyPopulationsByYears(data, *years):
+    total_Turkey_Population = {}
+    for year in years:
+        pass
+        
 
 def getTurkeyPopulationsByYearsInMale(*years):
     pass

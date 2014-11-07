@@ -1,20 +1,23 @@
-'''
+﻿'''
 Created on Nov 4, 2014
 
 @author: engin
 '''
-# -*- coding: utf-8 -*-
+# coding=utf-8-sig
+
+
 import glob, os
 import pandas as pd
 
 def get_names_data(fileNames, file_type):
+    print "Türkiye"
     populationYears = {}
     for fileName in fileNames:
         fName = fileName[6:10]
         print fName, " is now reading"
         if file_type == 'csv':
             data = pd.read_csv(fileName, error_bad_lines=False, delimiter=';')
-        elif file_type == 'xlsx' or 'xls':
+        elif file_type == 'xlsx':
             fileX = pd.ExcelFile(fileName)
             sheetNames = fileX.sheet_names
             for sheet in sheetNames:
@@ -24,6 +27,7 @@ def get_names_data(fileNames, file_type):
             data = data.dropna()
         populationYears[fName] = data
     return populationYears
+
 def find_file_names(path, fileName_extension):
     files = glob.glob(os.path.join(path, fileName_extension))
     return files
