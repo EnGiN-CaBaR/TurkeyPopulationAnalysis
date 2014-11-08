@@ -10,7 +10,6 @@ import glob, os
 import pandas as pd
 
 def get_names_data(fileNames, file_type):
-    print "Türkiye"
     populationYears = {}
     for fileName in fileNames:
         fName = fileName[6:10]
