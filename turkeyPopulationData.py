@@ -6,6 +6,7 @@ Created on Nov 4, 2014
 # coding=utf-8
 
 import pandas as pd
+import numpy as np
 
 CITIES = 'Cities'
 CITY_TOTAL = 'City_Total' 
@@ -182,3 +183,21 @@ def getVillagePopulationsByYearsInFemale(data, city, years):
         total_Village_FemalePopulation[year] = cities
     print "Exiting from getVillagePopulationsByYearsInFemale()"
     return pd.DataFrame(total_Village_FemalePopulation)
+
+def getCityNumberByYears(data, years):
+    print "Entering into getCityNumberByYears()"
+    city_count = {}
+    for year in list(years):
+        cityInYear = data[year]['Cities'].tolist()[1:]
+        print "year is ", year
+        city_count[year] = len(cityInYear)
+    print "Exiting from getCityNumberByYears()"
+    return city_count
+
+def populationPredictionForTurkey(dft):
+    print "Entering into getCityNumberByYears()"
+    #years = dft.columns.values
+    growth_rate = (dft[['1990']].values - dft[['1985']].values) / dft[['1990']].values
+    P1995 = (dft[['1990']].values) * ((np.e)**(growth_rate*1))
+    print P1995
+    print "Exiting from getCityNumberByYears()"

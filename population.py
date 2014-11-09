@@ -11,12 +11,20 @@ import pandas as pd
 from turkeyPopulationData import *
 import numpy as np
 import matplotlib.pyplot as plt
+import population_graph as pg 
 
 if __name__ == "__main__":
     fs = find_file_names('years', '*.xlsx')
     data = get_names_data(fs, 'xlsx')
     yKeys = data.keys()
 #     tm = getTurkeyPopulationsByYears(data, yKeys)
+#     print tm
+#     pg.totalPopulation_Cities(tm, getCityNumberByYears(data, yKeys))
+    
+    #pg.plotTotalMaleFemaleAvgPerYear(data, yKeys)
+    
+    #pg.plotTurkeyPopulationByYear(data, yKeys)
+    populationPredictionForTurkey(getTurkeyPopulationsByYears(data, yKeys))
 #     tm = getTurkeyPopulationsByYearsInMale(data, yKeys)
 #     tm = getTurkeyPopulationsByYearsInFemale(data, yKeys)
 #     tm = getCityCenterPopulationsByYears(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
@@ -29,9 +37,10 @@ if __name__ == "__main__":
 #     print tm
 #     tm = getVillagePopulationsByYearsInMale(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
 #     print tm
-    tm = getVillagePopulationsByYearsInFemale(data, ['All'], yKeys).fillna(0).sort(yKeys, ascending=False).head(5).T
-    print tm
-    tm.plot()
+#    tm = getVillagePopulationsByYearsInFemale(data, ['İstanbul'], yKeys).fillna(0).sort(yKeys, ascending=False).head(5).T
+#     tm = getCityCenterPopulationsByYears(data, ['All'], yKeys).fillna(0).sort(yKeys, ascending=False).T
+#     print tm
+#     tm.plot()
 #     print tm
 
 #     rng = pd.date_range('1/1/2012', periods=24, freq='M')
