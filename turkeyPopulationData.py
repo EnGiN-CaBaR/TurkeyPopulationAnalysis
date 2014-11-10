@@ -197,7 +197,13 @@ def getCityNumberByYears(data, years):
 def populationPredictionForTurkey(dft):
     print "Entering into getCityNumberByYears()"
     #years = dft.columns.values
-    growth_rate = (dft[['1990']].values - dft[['1985']].values) / dft[['1990']].values
-    P1995 = (dft[['1990']].values) * ((np.e)**(growth_rate*1))
+    dft['1960'] = 27553280
+    dft['1995'] = 58522320
+    dft['2005'] = 67743052
+    dft['2010'] = 72137546
+    sorted_columns = dft.columns.sort()
+    print dft.sort(sorted_columns, ascending = True)
+    growth_rate = (dft['1990'].values - dft['1985'].values) / dft['1990'].values
+    P1995 = (dft['1990'].values) * ((np.e)**(growth_rate*1))
     print P1995
     print "Exiting from getCityNumberByYears()"

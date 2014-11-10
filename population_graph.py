@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 from turkeyPopulationData import *
 import numpy as np
+import pygal
 
 # coding=utf-8
 
@@ -40,3 +41,17 @@ def plotTurkeyPopulationByYear(data, years):
     plt.legend( (p1[0], p2[0]), ('Femen', 'Male') ) #sagüste legend cıkarıyor anlamak için
 
     plt.show()
+    
+def plotTopFiveCityPopulationGrowth(data, years):
+    sorted_data = data.fillna(0).sort(years, ascending=False).head(10)
+    sorted_data = (sorted_data / sorted_data[years].sum()) * 100
+    sorted_data_columns = list(sorted_data.columns.values)
+    sorted_data_rows = list(sorted_data.index.values)
+    
+    
+    dot_chart = pygal.Dot(x_label_rotation=50)
+    dot_chart.title = 'Population Percentage of Top-5 cities per Year'
+    dot_chart.x_labels = sorted_data_columns
+    for city in sorted_data_rows:
+        dot_chart.add(city, sorted_data.ix[city])
+    dot_chart.render_to_file('dot_chart.svg')   

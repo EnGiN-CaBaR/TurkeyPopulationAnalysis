@@ -17,14 +17,24 @@ if __name__ == "__main__":
     fs = find_file_names('years', '*.xlsx')
     data = get_names_data(fs, 'xlsx')
     yKeys = data.keys()
-#     tm = getTurkeyPopulationsByYears(data, yKeys)
+    tm = getTurkeyPopulationsByYears(data, yKeys)
 #     print tm
-#     pg.totalPopulation_Cities(tm, getCityNumberByYears(data, yKeys))
+#     pg.plotTotalPopulation_Cities(tm, getCityNumberByYears(data, yKeys))
+#     
+#     pg.plotTotalMaleFemaleAvgPerYear(data, yKeys)
+#     
+#     pg.plotTurkeyPopulationByYear(data, yKeys)
+    #populationPredictionForTurkey(getTurkeyPopulationsByYears(data, yKeys))
+    ccpy = getCityCenterPopulationsByYears(data, ['All'], yKeys)
+    pg.plotTopFiveCityPopulationGrowth(ccpy, yKeys)
     
-    #pg.plotTotalMaleFemaleAvgPerYear(data, yKeys)
     
-    #pg.plotTurkeyPopulationByYear(data, yKeys)
-    populationPredictionForTurkey(getTurkeyPopulationsByYears(data, yKeys))
+    
+    
+    
+    
+    
+    
 #     tm = getTurkeyPopulationsByYearsInMale(data, yKeys)
 #     tm = getTurkeyPopulationsByYearsInFemale(data, yKeys)
 #     tm = getCityCenterPopulationsByYears(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
