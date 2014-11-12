@@ -105,7 +105,7 @@ def getCityCenterPopulationsByYears(data, city, years):
     print "Exiting from into getCityCenterPopulationsByYears()"
     return pd.DataFrame(total_CityCenter_Population)
 
-def getCityPopulationsByYearsInMale(data ,city, years):
+def getCityPopulationsByYearsInMale(data , city, years):
     print "Entering into getCityPopulationsByYearsInMale()"
     total_CityCenter_MalePopulation = {}
     for year in list(years):
@@ -223,7 +223,7 @@ def getCityNumberByYears(data, years):
 def populationPredictionForTurkey(dft):
     print "Entering into getCityNumberByYears()"
     growth_rate = (dft['1990'].values - dft['1985'].values) / dft['1990'].values
-    P1995 = (dft['1990'].values) * ((np.e)**(growth_rate*1))
+    P1995 = (dft['1990'].values) * ((np.e) ** (growth_rate * 1))
     print P1995
     print "Exiting from getCityNumberByYears()"
     

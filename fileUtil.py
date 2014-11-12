@@ -21,7 +21,7 @@ def get_names_data(fileNames, file_type):
             sheetNames = fileX.sheet_names
             for sheet in sheetNames:
                 data = pd.read_excel(fileName, sheet, parse_cols="A:L", header=10)
-                data.columns = ['Cities', 'City_Total', 'City_Male', 'City_Female', 'CityCenter_Total', 
+                data.columns = ['Cities', 'City_Total', 'City_Male', 'City_Female', 'CityCenter_Total',
                                 'CityCenter_Male', 'CityCenter_Female', 'Villages_Total', 'Villages_Male', 'Villages_Female']
             data = data.dropna()
         populationYears[fName] = data

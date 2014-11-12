@@ -19,13 +19,13 @@ import json
 
 @app.route('/turkey_population')
 def jsonExample():
-    exampleDic = {'a' : [1,2,3], 'b' : [5,6,7]}
-    a=json.dumps(exampleDic)
+    exampleDic = {'a' : [1, 2, 3], 'b' : [5, 6, 7]}
+    a = json.dumps(exampleDic)
     return str(a)
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0', debug=True)
     
     fs = find_file_names('years', '*.xlsx')
     data = get_names_data(fs, 'xlsx')
