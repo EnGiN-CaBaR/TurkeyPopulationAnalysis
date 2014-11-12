@@ -58,6 +58,32 @@ def getTurkeyPopulationsByYearsInFemale(data, years):
     print "Exiting from into getTurkeyPopulationsByYearsInFemale()"
     return pd.DataFrame(total_Turkey_Population_InFemale)
 
+def getTurkeyPopulationsByYearsInCityCenterTotal(data, years):
+    print "Entering into getTurkeyPopulationsByYearsInCityCenterTotal()"
+    total_Turkey_Population_InCityCenter = {}
+    s = 'Türkiye'
+    for year in list(years):
+        t = {}
+        df = data[year]
+        pop = df[df.Cities == 'Türkiye'.decode('utf-8')][CITYCENTER_TOTAL].head()
+        t[s] = float(pop)
+        total_Turkey_Population_InCityCenter[year] = t
+    print "Exiting from into getTurkeyPopulationsByYearsInCityCenterTotal()"
+    return pd.DataFrame(total_Turkey_Population_InCityCenter)
+
+def getTurkeyPopulationsByYearsInVillageTotal(data, years):
+    print "Entering into getTurkeyPopulationsByYearsInVillageTotal()"
+    total_Turkey_Population_InVillage = {}
+    s = 'Türkiye'
+    for year in list(years):
+        t = {}
+        df = data[year]
+        pop = df[df.Cities == 'Türkiye'.decode('utf-8')][VILLAGES_TOTAL].head()
+        t[s] = float(pop)
+        total_Turkey_Population_InVillage[year] = t
+    print "Exiting from into getTurkeyPopulationsByYearsInVillageTotal()"
+    return pd.DataFrame(total_Turkey_Population_InVillage)
+
 def getCityCenterPopulationsByYears(data, city, years):
     print "Entering into getCityCenterPopulationsByYears()"
     total_CityCenter_Population = {}
@@ -196,14 +222,8 @@ def getCityNumberByYears(data, years):
 
 def populationPredictionForTurkey(dft):
     print "Entering into getCityNumberByYears()"
-    #years = dft.columns.values
-    dft['1960'] = 27553280
-    dft['1995'] = 58522320
-    dft['2005'] = 67743052
-    dft['2010'] = 72137546
-    sorted_columns = dft.columns.sort()
-    print dft.sort(sorted_columns, ascending = True)
     growth_rate = (dft['1990'].values - dft['1985'].values) / dft['1990'].values
     P1995 = (dft['1990'].values) * ((np.e)**(growth_rate*1))
     print P1995
     print "Exiting from getCityNumberByYears()"
+    

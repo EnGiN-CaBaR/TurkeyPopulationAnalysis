@@ -11,61 +11,23 @@ import pandas as pd
 from turkeyPopulationData import *
 import numpy as np
 import matplotlib.pyplot as plt
-import population_graph as pg 
+import population_graph as pg
+from flask import Flask
+from flask import request
+import json
+
+
+@app.route('/turkey_population')
+def jsonExample():
+    exampleDic = {'a' : [1,2,3], 'b' : [5,6,7]}
+    a=json.dumps(exampleDic)
+    return str(a)
+
 
 if __name__ == "__main__":
+    app.run(host='0.0.0.0',debug=True)
+    
     fs = find_file_names('years', '*.xlsx')
     data = get_names_data(fs, 'xlsx')
     yKeys = data.keys()
     tm = getTurkeyPopulationsByYears(data, yKeys)
-#     print tm
-#     pg.plotTotalPopulation_Cities(tm, getCityNumberByYears(data, yKeys))
-#     
-#     pg.plotTotalMaleFemaleAvgPerYear(data, yKeys)
-#     
-#     pg.plotTurkeyPopulationByYear(data, yKeys)
-    #populationPredictionForTurkey(getTurkeyPopulationsByYears(data, yKeys))
-    ccpy = getCityCenterPopulationsByYears(data, ['All'], yKeys)
-    pg.plotTopFiveCityPopulationGrowth(ccpy, yKeys)
-    
-    
-    
-    
-    
-    
-    
-    
-#     tm = getTurkeyPopulationsByYearsInMale(data, yKeys)
-#     tm = getTurkeyPopulationsByYearsInFemale(data, yKeys)
-#     tm = getCityCenterPopulationsByYears(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
-#     print tm
-#     tm = getCityPopulationsByYearsInMale(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
-#     print tm
-#     tm = getCityPopulationsByYearsInFemale(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
-#     print tm
-#     tm = getVillagePopulationsByYears(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
-#     print tm
-#     tm = getVillagePopulationsByYearsInMale(data, ['Kilis','Yalova','Konya', 'Ankara','Ağrı'], yKeys)
-#     print tm
-#    tm = getVillagePopulationsByYearsInFemale(data, ['İstanbul'], yKeys).fillna(0).sort(yKeys, ascending=False).head(5).T
-#     tm = getCityCenterPopulationsByYears(data, ['All'], yKeys).fillna(0).sort(yKeys, ascending=False).T
-#     print tm
-#     tm.plot()
-#     print tm
-
-#     rng = pd.date_range('1/1/2012', periods=24, freq='M')
-#     ts = pd.Series(np.random.randn(len(rng)), rng).plot()
-    plt.show()
-
-
-
-#     df = data['1965']
-#     print df
-#     c = df['Cities']
-#     print c
-#     
-#     s = 'Türkiye'.decode('utf-8')
-#     print type(s)
-#     
-#     t = df[c == s]['City_Total'].head()
-#     print t

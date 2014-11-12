@@ -43,8 +43,9 @@ def plotTurkeyPopulationByYear(data, years):
     plt.show()
     
 def plotTopFiveCityPopulationGrowth(data, years):
-    sorted_data = data.fillna(0).sort(years, ascending=False).head(10)
-    sorted_data = (sorted_data / sorted_data[years].sum()) * 100
+    sorted_data = data.fillna(0).sort(years, ascending=False).head(5)
+    turkey_total = sorted_data.sum()
+    sorted_data = (sorted_data / turkey_total) * 100
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
     
@@ -54,4 +55,18 @@ def plotTopFiveCityPopulationGrowth(data, years):
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
         dot_chart.add(city, sorted_data.ix[city])
-    dot_chart.render_to_file('dot_chart.svg')   
+    dot_chart.render_to_file('dot_chart.svg')
+
+def stackedExample(data, years):
+    print data
+    
+    
+    
+    stackedline_chart = pygal.StackedLine(fill=True)
+    stackedline_chart.title = 'Browser usage evolution (in %)'
+    stackedline_chart.x_labels = map(str, range(2002, 2013))
+    stackedline_chart.add('Firefox', [None, None, 0, 16.6,   25,   31, 36.4, 45.5, 46.3, 42.8, 37.1])
+    stackedline_chart.add('Chrome',  [None, None, None, None, None, None,    0,  3.9, 10.8, 23.8, 35.3])
+    stackedline_chart.add('IE',      [85.8, 84.6, 84.7, 74.5,   66, 58.6, 54.7, 44.8, 36.2, 26.6, 20.1])
+    stackedline_chart.add('Others',  [14.2, 15.4, 15.3,  8.9,    9, 10.4,  8.9,  5.8,  6.7,  6.8,  7.5])
+    stackedline_chart.render_to_file('stacked_chart.svg')
