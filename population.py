@@ -15,18 +15,25 @@ import population_graph as pg
 from flask import Flask
 from flask import request
 import json
-import TurkeyPopStat
 from flask.templating import render_template
+from flask.json import jsonify
 
 app = Flask(__name__)
 
-@app.route('/turkey_population')
+
+fs = find_file_names('years', '*.xlsx')
+data = get_names_data(fs, 'xlsx')
+yKeys = data.keys()
+tm = getCityCenterPopulationsByYears(data, ['All'], yKeys)
+plate = getPlate()
+
+@app.route('/turkey_population', methods=['GET', 'POST'])
 def jsonExample():
-    fs = find_file_names('years', '*.xlsx')
-    data = get_names_data(fs, 'xlsx')
-    yKeys = data.keys()
-    tm = getCityCenterPopulationsByYears(data, ['All'], yKeys)
-    return render_template('hello.html', name=tm.to_json()) 
+    if request.method == 'GET':
+        return render_template('hello.html')
+    else:
+        f1 = request.args.get('Year', '')
+        return tm[f1].to_json()
 
 if __name__ == "__main__":
     

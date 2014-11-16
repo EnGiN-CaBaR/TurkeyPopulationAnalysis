@@ -1,49 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="tr">
-<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1254" />
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9" />
-		<meta http-equiv="Content-Type" content="text/html; charset=x-mac-turkish" />
-<title>Hello from Flask</title>
-</head>
-
-<script>
-	function loadJSON()
-{
-   var data_file = "/turkey_population?Year=1965";
-   var http_request = new XMLHttpRequest();
-  	debugger
-   http_request = new XMLHttpRequest();
-   
-   http_request.onreadystatechange  = function(){
-      if (http_request.readyState == 4 &&  http_request.status==200)
-      {
-      	debugger
-        // Javascript function JSON.parse to parse JSON data
-        var jsonObj = JSON.parse(http_request.responseText);
-
-        // jsonObj variable now contains the data structure and can
-        // be accessed as jsonObj.name and jsonObj.country.
-        debugger
-        var txt = "";
-        for(x in jsonObj){
-				txt += x + " : " + jsonObj[x] + " ";        
-        }
-        document.getElementById("demo").innerHTML =  txt;
-        //document.getElementById("Country").innerHTML = jsonObj.country;
-      }
-   }
-   http_request.open("POST", data_file, true);
-   http_request.send();
-}
-</script>
-
-
-<body>
-
-	<button id="button1" onclick="loadJSON()" >Hadi Kocumm</button>
-
-	<svg
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://web.resource.org/cc/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -539,13 +496,3 @@
     </g>
   </g>
 </svg>
-</body>
-<p id="demo"></p>
-
-<select>
-  <option value="1965">1965</option>
-  <option value="1970">1970</option>
-</select>
-
-
-</html>

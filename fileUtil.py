@@ -30,3 +30,11 @@ def get_names_data(fileNames, file_type):
 def find_file_names(path, fileName_extension):
     files = glob.glob(os.path.join(path, fileName_extension))
     return files
+
+def getPlate():
+    plate = {}
+    with open('templates/plaka.txt', 'r') as f:
+        for line in f.readlines():
+            l = line.split(":")
+            plate[l[1].rstrip()] = l[0]
+    return plate

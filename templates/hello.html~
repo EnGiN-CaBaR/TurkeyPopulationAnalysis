@@ -27,7 +27,7 @@
         debugger
         var txt = "";
         for(x in jsonObj){
-				txt += x + " : " + jsonObj[x] + " ";        
+				txt += jsonObj[x];        
         }
         document.getElementById("demo").innerHTML =  txt;
         //document.getElementById("Country").innerHTML = jsonObj.country;

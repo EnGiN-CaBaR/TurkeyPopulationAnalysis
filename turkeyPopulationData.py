@@ -97,6 +97,7 @@ def getCityCenterPopulationsByYears(data, city, years):
             cityNames = [c.decode('utf-8') for c in city]
         df = data[year][1:]
         for cityName in cityNames:
+            print cityName
             if cityName in cityInYear:
                 print cityName, " is now reading"
                 s = df[df.Cities == cityName][CITYCENTER_TOTAL]
