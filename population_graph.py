@@ -10,8 +10,8 @@ def plotTotalPopulation_Cities(turkey_population_in_years, city_count):
     yKeys = city_count.keys()
     populationAvgPerCity = {}
     for year in yKeys:
-       populationAvg = turkey_population_in_years[year] / city_count[year]
-       populationAvgPerCity[year] = populationAvg
+        populationAvg = turkey_population_in_years[year] / city_count[year]
+        populationAvgPerCity[year] = populationAvg
     pd.DataFrame(populationAvgPerCity).T.plot()
     plt.show()
     
@@ -59,9 +59,6 @@ def plotTopFiveCityPopulationGrowth(data, years):
 
 def stackedExample(data, years):
     print data
-    
-    
-    
     stackedline_chart = pygal.StackedLine(fill=True)
     stackedline_chart.title = 'Browser usage evolution (in %)'
     stackedline_chart.x_labels = map(str, range(2002, 2013))
@@ -70,3 +67,50 @@ def stackedExample(data, years):
     stackedline_chart.add('IE', [85.8, 84.6, 84.7, 74.5, 66, 58.6, 54.7, 44.8, 36.2, 26.6, 20.1])
     stackedline_chart.add('Others', [14.2, 15.4, 15.3, 8.9, 9, 10.4, 8.9, 5.8, 6.7, 6.8, 7.5])
     stackedline_chart.render_to_file('stacked_chart.svg')
+    
+def plotHorizontalBarTopFive(data, years):
+    data_1965 = data.fillna(0).sort(['1965'],ascending=False).head(5)['1965']
+    city = data_1965.index
+    pop = data_1965.values
+    horizontalbar_chart = pygal.HorizontalBar()
+    horizontalbar_chart.title = 'Top 5 city center in 1965'
+    for i in range(len(city)):
+        horizontalbar_chart.add(city[i], pop[i])
+
+    horizontalbar_chart.render_to_file("horizontalBar.svg")
+    
+
+def plotLineChartTopTen(data, years):
+    sorted_data = data.fillna(0).sort(years,ascending=False).head(10)
+    city = sorted_data.index
+    pop = sorted_data.values
+    line_chart = pygal.Line()
+    line_chart.title = 'Top 10 Cities Population Increased Most'
+    line_chart.x_labels = map(str, years)
+    for i in range(len(city)):
+        line_chart.add(city[i], pop[i])
+    line_chart.render_to_file("lineChart.svg")
+    
+def plotLineChartTopTenRural(data, years):
+    sorted_data = data.fillna(0).sort(years,ascending=False).head(10)
+    city = sorted_data.index
+    pop = sorted_data.values
+    line_chart = pygal.Line()
+    line_chart.title = 'Top 10 Village Population Increased Most'
+    line_chart.x_labels = map(str, years)
+    for i in range(len(city)):
+        line_chart.add(city[i], pop[i])
+    line_chart.render_to_file("lineChartRuralPop.svg")
+    
+def plotPieChartTopFiveCity(dataM, dataF, years):
+    sorted_data_male = dataM.fillna(0).sort(years,ascending=False).head(5)
+    sorted_data_female = dataF.fillna(0).sort(years,ascending=False).head(5)
+    cityM = sorted_data_male.index
+    pop = sorted_data_male.values
+    line_chart = pygal.Line()
+    line_chart.title = 'Top 10 Village Population Increased Most'
+    line_chart.x_labels = map(str, years)
+    for i in range(len(city)):
+        line_chart.add(city[i], pop[i])
+    line_chart.render_to_file("lineChartRuralPop.svg")
+

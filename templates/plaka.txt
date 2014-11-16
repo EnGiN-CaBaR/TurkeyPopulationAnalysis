@@ -30,7 +30,7 @@ TR-29:Gümüşhane
 TR-30:Hakkari
 TR-31:Hatay
 TR-32:Isparta
-TR-33:İçel
+TR-33:Mersin (İçel)
 TR-34:İstanbul
 TR-35:İzmir
 TR-36:Kars
@@ -43,7 +43,7 @@ TR-42:Konya
 TR-43:Kütahya
 TR-44:Malatya
 TR-45:Manisa
-TR-46:K.Maraş
+TR-46:Kahramanmaraş
 TR-47:Mardin
 TR-48:Muğla
 TR-49:Muş

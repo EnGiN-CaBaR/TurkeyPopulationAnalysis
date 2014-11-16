@@ -36,5 +36,5 @@ def getPlate():
     with open('templates/plaka.txt', 'r') as f:
         for line in f.readlines():
             l = line.split(":")
-            plate[l[1].rstrip()] = l[0]
+            plate[l[1].rstrip().decode('utf-8')] = l[0]
     return plate
