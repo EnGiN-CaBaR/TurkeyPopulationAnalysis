@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Turkey Population Analysis</title>
+<link rel="stylesheet" type="text/css" href="static/turkey.css" media="screen" />
+</head>
+
+<body>
+<h1><b><font size="6">Turkey Population Analysis</font></b></h1>
+<div id="tooltip"></div><!-- div to hold tooltip. -->
+<svg width="1040" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+<script src="static/turkey.js"></script> <!-- creates Turkey. -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+ 
+	function tooltipHtml(n, d){	/* function to create html content string in tooltip div. */
+		return "<h4>"+n+"</h4><table>"+
+			"<tr><td>TotalPop</td><td>"+(d.totalPop)+"</td></tr>"+
+			"<tr><td>CityCenterPop</td><td>"+(d.cityCenter)+"</td></tr>"+
+			"<tr><td>VillagePop</td><td>"+(d.villagepop)+"</td></tr>"+
+			"</table>";
+	}
+	
+	function getJSONData()
+	{
+	   var data_file = "/turkey_population?Year=1965";
+	   var http_request = new XMLHttpRequest();
+	   http_request = new XMLHttpRequest();
+	   
+	   http_request.onreadystatechange  = function(){
+	      if (http_request.readyState == 4 &&  http_request.status==200)
+	      {
+	        // Javascript function JSON.parse to parse JSON data
+	        var jsonObj = JSON.parse(http_request.responseText);
+
+	        // jsonObj variable now contains the data structure and can
+	        // be accessed as jsonObj.name and jsonObj.country.
+	        var txt = "";
+	        debugger;
+	        for(x in jsonObj){
+					txt += x + " : " + jsonObj[x] + " ";        
+	        }
+	        //document.getElementById("demo").innerHTML =  txt;
+	        //document.getElementById("Country").innerHTML = jsonObj.country;
+	      }
+	   }
+	   http_request.open("POST", data_file, true);
+	   http_request.send();
+	}
+	debugger;
+	var sampleData ={};	/* Sample random data. */	
+	["TR-01", "TR-02", "TR-03", "TR-04", "TR-05", "TR-06", "TR-07", "TR-08", "TR-09", "TR-10",
+	 "TR-11", "TR-12", "TR-13", "TR-14", "TR-15", "TR-16", "TR-17", "TR-18", "TR-19", "TR-20",
+	 "TR-21", "TR-22", "TR-23", "TR-24", "TR-25", "TR-26", "TR-27", "TR-28", "TR-29", "TR-30",
+	 "TR-31", "TR-32", "TR-33", "TR-34", "TR-35", "TR-36", "TR-37", "TR-38", "TR-39", "TR-40",
+	 "TR-41", "TR-42", "TR-43", "TR-44", "TR-45", "TR-46", "TR-47", "TR-48", "TR-49", "TR-50",
+	 "TR-51", "TR-52", "TR-53", "TR-54", "TR-55", "TR-56", "TR-57", "TR-58", "TR-59", "TR-60",
+	 "TR-61", "TR-62", "TR-63", "TR-64", "TR-65", "TR-66", "TR-67", "TR-68", "TR-69", "TR-70",
+	 "TR-71", "TR-72", "TR-73", "TR-74", "TR-75", "TR-76", "TR-77", "TR-78", "TR-79", "TR-80",
+	 "TR-81",]
+		.forEach(function(d){ 
+			var low=Math.round(100*Math.random()), 
+				mid=Math.round(100*Math.random()), 
+				high=Math.round(100*Math.random());
+			sampleData[d]={low:d3.min([low,mid,high]), high:d3.max([low,mid,high]), 
+					avg:Math.round((low+mid+high)/3), color:d3.interpolate("#ffffcc", "#800026")(low/100)}; 
+		});
+	
+	/* draw states on id #statesvg */	
+	turkey.draw("#statesvg", sampleData, tooltipHtml);
+</script>
+</body>

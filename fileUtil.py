@@ -33,7 +33,7 @@ def find_file_names(path, fileName_extension):
 
 def getPlate():
     plate = {}
-    with open('templates/plaka.txt', 'r') as f:
+    with open('cityRegions/plaka.txt', 'r') as f:
         for line in f.readlines():
             l = line.split(":")
             plate[l[1].rstrip().decode('utf-8')] = l[0]

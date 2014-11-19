@@ -89,7 +89,7 @@ def getCityCenterPopulationsByYears(data, city, years):
     total_CityCenter_Population = {}
     for year in list(years):
         cityInYear = data[year]['Cities'].tolist()[1:]
-        print "year is ", year
+        #print "year is ", year
         cities = {}
         if city[0] == 'All':
             cityNames = data[year]['Cities'].tolist()[1:]
@@ -97,9 +97,9 @@ def getCityCenterPopulationsByYears(data, city, years):
             cityNames = [c.decode('utf-8') for c in city]
         df = data[year][1:]
         for cityName in cityNames:
-            print cityName
+            #print cityName
             if cityName in cityInYear:
-                print cityName, " is now reading"
+                #print cityName, " is now reading"
                 s = df[df.Cities == cityName][CITYCENTER_TOTAL]
                 cities[cityName] = float(s.values)
         total_CityCenter_Population[year] = cities
@@ -111,7 +111,7 @@ def getCityPopulationsByYearsInMale(data , city, years):
     total_CityCenter_MalePopulation = {}
     for year in list(years):
         cityInYear = data[year]['Cities'].tolist()[1:]
-        print "year is ", year
+        #print "year is ", year
         cities = {}
         if city[0] == 'All':
             cityNames = data[year]['Cities'].tolist()[1:]
@@ -120,7 +120,7 @@ def getCityPopulationsByYearsInMale(data , city, years):
         df = data[year][1:]
         for cityName in cityNames:
             if cityName in cityInYear:
-                print cityName, " is now reading"
+                #print cityName, " is now reading"
                 s = df[df.Cities == cityName][CITYCENTER_MALE].head()
                 cities[cityName] = float(s)
         total_CityCenter_MalePopulation[year] = cities
@@ -132,7 +132,7 @@ def getCityPopulationsByYearsInFemale(data, city, years):
     total_CityCenter_FemalePopulation = {}
     for year in list(years):
         cityInYear = data[year]['Cities'].tolist()[1:]
-        print "year is ", year
+        #print "year is ", year
         cities = {}
         if city[0] == 'All':
             cityNames = data[year]['Cities'].tolist()[1:]
@@ -141,7 +141,7 @@ def getCityPopulationsByYearsInFemale(data, city, years):
         df = data[year][1:]
         for cityName in cityNames:
             if cityName in cityInYear:
-                print cityName, " is now reading"
+                #print cityName, " is now reading"
                 s = df[df.Cities == cityName][CITYCENTER_FEMALE].head()
                 cities[cityName] = float(s)
         total_CityCenter_FemalePopulation[year] = cities
@@ -153,7 +153,7 @@ def getVillagePopulationsByYears(data, city, years):
     total_Village_Population = {}
     for year in list(years):
         cityInYear = data[year]['Cities'].tolist()[1:]
-        print "year is ", year
+        #print "year is ", year
         cities = {}
         if city[0] == 'All':
             cityNames = data[year]['Cities'].tolist()[1:]
@@ -162,7 +162,7 @@ def getVillagePopulationsByYears(data, city, years):
         df = data[year][1:]
         for cityName in cityNames:
             if cityName in cityInYear:
-                print cityName, " is now reading"
+                #print cityName, " is now reading"
                 s = df[df.Cities == cityName][VILLAGES_TOTAL].head()
                 cities[cityName] = float(s)
         total_Village_Population[year] = cities
@@ -174,7 +174,7 @@ def getVillagePopulationsByYearsInMale(data, city, years):
     total_Village_MalePopulation = {}
     for year in list(years):
         cityInYear = data[year]['Cities'].tolist()[1:]
-        print "year is ", year
+        #print "year is ", year
         cities = {}
         if city[0] == 'All':
             cityNames = data[year]['Cities'].tolist()[1:]
@@ -183,7 +183,7 @@ def getVillagePopulationsByYearsInMale(data, city, years):
         df = data[year][1:]
         for cityName in cityNames:
             if cityName in cityInYear:
-                print cityName, " is now reading"
+                #print cityName, " is now reading"
                 s = df[df.Cities == cityName][VILLAGES_MALE].head()
                 cities[cityName] = float(s)
         total_Village_MalePopulation[year] = cities
@@ -195,7 +195,7 @@ def getVillagePopulationsByYearsInFemale(data, city, years):
     total_Village_FemalePopulation = {}
     for year in list(years):
         cityInYear = data[year]['Cities'].tolist()[1:]
-        print "year is ", year
+        #print "year is ", year
         cities = {}
         if city[0] == 'All':
             cityNames = data[year]['Cities'].tolist()[1:]
@@ -204,7 +204,7 @@ def getVillagePopulationsByYearsInFemale(data, city, years):
         df = data[year][1:]
         for cityName in cityNames:
             if cityName in cityInYear:
-                print cityName, " is now reading"
+                #print cityName, " is now reading"
                 s = df[df.Cities == cityName][VILLAGES_FEMALE].head()
                 cities[cityName] = float(s)
         total_Village_FemalePopulation[year] = cities
@@ -216,7 +216,7 @@ def getCityNumberByYears(data, years):
     city_count = {}
     for year in list(years):
         cityInYear = data[year]['Cities'].tolist()[1:]
-        print "year is ", year
+        #print "year is ", year
         city_count[year] = len(cityInYear)
     print "Exiting from getCityNumberByYears()"
     return city_count
