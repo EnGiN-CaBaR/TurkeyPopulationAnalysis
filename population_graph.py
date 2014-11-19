@@ -1,11 +1,11 @@
 ﻿import pandas as pd
 import matplotlib.pyplot as plt
-from turkeyPopulationData import *
 import numpy as np
-import pygal
+import pygal as pg
+from turkeyPopulationData import *
+
 
 # coding=utf-8
-
 def plotTotalPopulation_Cities(turkey_population_in_years, city_count):
     yKeys = city_count.keys()
     populationAvgPerCity = {}
@@ -50,7 +50,7 @@ def plotTopFiveCityPopulationGrowth(data, years):
     sorted_data_rows = list(sorted_data.index.values)
     
     
-    dot_chart = pygal.Dot(x_label_rotation=50)
+    dot_chart = pg.Dot(x_label_rotation=50)
     dot_chart.title = 'Population Percentage of Top-5 cities per Year'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -59,7 +59,7 @@ def plotTopFiveCityPopulationGrowth(data, years):
 
 def stackedExample(data, years):
     print data
-    stackedline_chart = pygal.StackedLine(fill=True)
+    stackedline_chart = pg.StackedLine(fill=True)
     stackedline_chart.title = 'Browser usage evolution (in %)'
     stackedline_chart.x_labels = map(str, range(2002, 2013))
     stackedline_chart.add('Firefox', [None, None, 0, 16.6, 25, 31, 36.4, 45.5, 46.3, 42.8, 37.1])
@@ -72,7 +72,7 @@ def plotHorizontalBarTopFive(data, years):
     data_1965 = data.fillna(0).sort(['1965'],ascending=False).head(5)['1965']
     city = data_1965.index
     pop = data_1965.values
-    horizontalbar_chart = pygal.HorizontalBar()
+    horizontalbar_chart = pg.HorizontalBar()
     horizontalbar_chart.title = 'Top 5 city center in 1965'
     for i in range(len(city)):
         horizontalbar_chart.add(city[i], pop[i])
@@ -84,7 +84,7 @@ def plotLineChartTopTen(data, years):
     sorted_data = data.fillna(0).sort(years,ascending=False).head(10)
     city = sorted_data.index
     pop = sorted_data.values
-    line_chart = pygal.Line()
+    line_chart = pg.Line()
     line_chart.title = 'Top 10 Cities Population Increased Most'
     line_chart.x_labels = map(str, years)
     for i in range(len(city)):
@@ -95,22 +95,53 @@ def plotLineChartTopTenRural(data, years):
     sorted_data = data.fillna(0).sort(years,ascending=False).head(10)
     city = sorted_data.index
     pop = sorted_data.values
-    line_chart = pygal.Line()
+    line_chart = pg.Line()
     line_chart.title = 'Top 10 Village Population Increased Most'
     line_chart.x_labels = map(str, years)
     for i in range(len(city)):
         line_chart.add(city[i], pop[i])
     line_chart.render_to_file("lineChartRuralPop.svg")
     
-def plotPieChartTopFiveCity(dataM, dataF, years):
-    sorted_data_male = dataM.fillna(0).sort(years,ascending=False).head(5)
-    sorted_data_female = dataF.fillna(0).sort(years,ascending=False).head(5)
-    cityM = sorted_data_male.index
-    pop = sorted_data_male.values
-    line_chart = pygal.Line()
-    line_chart.title = 'Top 10 Village Population Increased Most'
-    line_chart.x_labels = map(str, years)
-    for i in range(len(city)):
-        line_chart.add(city[i], pop[i])
-    line_chart.render_to_file("lineChartRuralPop.svg")
+# def plotPieChartTopFiveCity(dataM, dataF, years):
+#     sorted_data_male = dataM.fillna(0).sort(years,ascending=False).head(5)
+#     sorted_data_female = dataF.fillna(0).sort(years,ascending=False).head(5)
+#     cityM = sorted_data_male.index
+#     pop = sorted_data_male.values
+#     line_chart = pg.Line()
+#     line_chart.title = 'Top 10 Village Population Increased Most'
+#     line_chart.x_labels = map(str, years)
+#     for i in range(len(city)):
+#         line_chart.add(city[i], pop[i])
+#     line_chart.render_to_file("lineChartRuralPop.svg")
 
+def plotPyramidChart(cPopMale, cPopFemale, yKeys, cityRegion):
+    cPopMale = cPopMale.fillna(0)
+    cPopFemale = cPopFemale.fillna(0)
+    regions = cityRegion.keys()
+    sortedYears = sorted(yKeys)
+    for region in regions:
+        cityInRegion = cityRegion[region]
+        cityPopSet = []
+        cityNameInGender = []
+        pyramid_chart = pg.Pyramid(human_readable=True, legend_at_bottom=True)
+        pyramid_chart.title = 'Male-Female Population Changing In ' + region + ' By Year'
+        pyramid_chart.x_labels = sortedYears
+        for city in cityInRegion:
+            cityNameInGender.append(city + " Male")
+            cityNameInGender.append(city + " Female")
+        for city in cityInRegion:
+            cityPopMale = ()
+            cityPopFemale = ()
+            for year in sortedYears:
+                pop_Male = cPopMale[year][city.decode('utf-8')]
+                cityPopMale = cityPopMale + (pop_Male,)
+                pop_Female = cPopFemale[year][city.decode('utf-8')]
+                cityPopFemale = cityPopFemale + (pop_Female,)
+            cityPopSet.append(cityPopMale)
+            cityPopSet.append(cityPopFemale)
+        for nameInGender, popSet in zip(cityNameInGender, cityPopSet):
+            pyramid_chart.add(nameInGender.decode('utf-8'), popSet)
+        pyramid_chart.render_to_file("graphs\\" + region + ".svg")
+        
+def plotRegionOverTotalPopulationInYears(turkeyPop):
+    pass

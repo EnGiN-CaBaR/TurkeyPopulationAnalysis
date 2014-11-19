@@ -38,3 +38,13 @@ def getPlate():
             l = line.split(":")
             plate[l[1].rstrip().decode('utf-8')] = l[0]
     return plate
+
+def getRegionFiles(regionFiles):
+    regions = {}
+    for region in regionFiles:
+        regionName = region[12:-4]
+        with open(region, 'r') as f:
+            regions[regionName] = f.readlines()[0].split(',')
+    return regions
+
+
