@@ -24,8 +24,13 @@ def getTurkeyPopulation():
     if request.method == 'GET':
         return render_template('totalpopulation.html')
     else:
+        year = []
         f1 = request.args.get('Year', '')
-        jsonDic = json.loads(tm[f1].to_json())
+        year.append(f1)
+        cityCenter = tpd.getCityCenterPopulationsByYears(data, ['All'], year)
+        cityVillage = tpd.getVillagePopulationsByYears(data, ['All'], year)
+        cityTotal = cityCenter.fillna(0) + cityVillage.fillna(0)
+        jsonDic = json.loads(cityTotal[f1].to_json())
         for city in jsonDic.keys():
             jsonDic[plate[city]] = jsonDic.pop(city)
         return json.dumps(jsonDic)
@@ -35,9 +40,9 @@ if __name__ == "__main__":
     data = f.get_names_data(fs, 'xlsx')
     yKeys = data.keys()
     yKeys.sort()
-    tm = tpd.getCityCenterPopulationsByYears(data, ['All'], yKeys)
+    
     plate = f.getPlate()
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True,port=80)
     
 #     fs = find_file_names('years', '*.xlsx')
 #     data = get_names_data(fs, 'xlsx')
