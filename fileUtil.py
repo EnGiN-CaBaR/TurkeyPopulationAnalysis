@@ -47,4 +47,12 @@ def getRegionFiles(regionFiles):
             regions[regionName] = f.readlines()[0].split(',')
     return regions
 
+def getArea():
+    area = {}
+    with open('cityRegions/cityAreas.txt', 'r') as f:
+        for line in f.readlines():
+            l = line.split(":")
+            area[l[0].rstrip().decode('utf-8')] = l[1]
+    return area
+
 

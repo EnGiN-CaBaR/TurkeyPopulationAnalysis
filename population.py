@@ -26,6 +26,7 @@ def getTurkeyPopulation():
     else:
         year = []
         jsonDic = {}
+        density = {}
         f1 = request.args.get('Year', '')
         year.append(f1)
         cityCenter = tpd.getCityCenterPopulationsByYears(data, ['All'], year)
@@ -42,7 +43,12 @@ def getTurkeyPopulation():
         jsonDic["village"] = villageJsonDic
         
         for k in jsonDic.keys():
-            jsonDic[plate[k]] = jsonDic.pop(k)
+            temp = jsonDic[k]
+            for l in temp.keys():    
+                temp[plate[l]] = temp.pop(l)
+                if k == "total":
+                    density[plate[l]] = round(temp[plate[l]] / float(cityArea[plate[l]]))
+        jsonDic["cityDensity"] = density
         return json.dumps(jsonDic)
             
 if __name__ == "__main__":
@@ -52,7 +58,8 @@ if __name__ == "__main__":
     yKeys.sort()
     
     plate = f.getPlate()
-    app.run(host='0.0.0.0', debug=True,port=80)
+    cityArea = f.getArea()
+    app.run(host='0.0.0.0', debug=True)
     
 #     fs = find_file_names('years', '*.xlsx')
 #     data = get_names_data(fs, 'xlsx')
