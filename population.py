@@ -25,14 +25,24 @@ def getTurkeyPopulation():
         return render_template('totalpopulation.html')
     else:
         year = []
+        jsonDic = {}
         f1 = request.args.get('Year', '')
         year.append(f1)
         cityCenter = tpd.getCityCenterPopulationsByYears(data, ['All'], year)
         cityVillage = tpd.getVillagePopulationsByYears(data, ['All'], year)
         cityTotal = cityCenter.fillna(0) + cityVillage.fillna(0)
-        jsonDic = json.loads(cityTotal[f1].to_json())
-        for city in jsonDic.keys():
-            jsonDic[plate[city]] = jsonDic.pop(city)
+        
+        totalJsonDic = json.loads(cityTotal[f1].to_json())
+        jsonDic["total"] = totalJsonDic
+        
+        centerJsonDic = json.loads(cityCenter[f1].to_json())
+        jsonDic["center"] = centerJsonDic
+        
+        villageJsonDic = json.loads(cityVillage[f1].to_json())
+        jsonDic["village"] = villageJsonDic
+        
+        for k in jsonDic.keys():
+            jsonDic[plate[k]] = jsonDic.pop(k)
         return json.dumps(jsonDic)
             
 if __name__ == "__main__":
