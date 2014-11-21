@@ -52,3 +52,52 @@
 #tooltip tr td:nth-child(2) {
 	text-align: center;
 }
+
+#processSelect {
+	position: relative;
+	left: 10px;
+	top: 10px;
+	height: 20px;
+}
+
+#year {
+	position: relative;
+	left: 10px;
+	top: 10px;
+	height: 20px;
+	font-weight: bold;
+}
+
+#maplink {
+	position: absolute;
+	right: 50px;
+	top: 50px;
+}
+
+#perpeople {
+	position: absolute;
+	background-color: #fff;
+	margin-top:90px;
+ 	width: 150px;
+  	height: 330px;
+  	right: 200px;
+}
+
+.maplegend {
+	position: absolute;
+	background-color: #fff;
+	margin-top:110px;
+ 	width: 150px;
+  	height: 330px;
+  	right: 200px;
+}
+
+.legText {
+	color:black;
+	font-family: font-family: 'Lato', Helvetica, sans-serif; font-weight: 300;
+	font-size:9pt;
+}
+
+ul.a {
+	list-style-type: circle;
+}

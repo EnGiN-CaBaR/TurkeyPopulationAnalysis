@@ -1,7 +1,10 @@
 ﻿import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import pygal as pg
+try:
+    import pygal as pg
+except:
+    print "Ypu should first install Pygal"
 from turkeyPopulationData import *
 
 
@@ -143,5 +146,30 @@ def plotPyramidChart(cPopMale, cPopFemale, yKeys, cityRegion):
             pyramid_chart.add(nameInGender.decode('utf-8'), popSet)
         pyramid_chart.render_to_file("graphs\\" + region + ".svg")
         
-def plotRegionOverTotalPopulationInYears(turkeyPop):
-    pass
+def plotRegionOverTotalPopulationInYears(cPopMale, cPopFemale, yKeys, cityRegion):
+    cPopMale = cPopMale.fillna(0)
+    cPopFemale = cPopFemale.fillna(0)
+    regions = cityRegion.keys()
+    sortedYears = sorted(yKeys)
+    regionNameInGender = []
+    regionPopSet = []
+    for region in regions:
+        cityInRegion = cityRegion[region]
+        regionNameInGender.append(region + " Male")
+        regionNameInGender.append(region + " Female")
+        pyramid_chart = pg.Pyramid(human_readable=True, legend_at_bottom=True)
+        pyramid_chart.title = 'Male-Female Population Changing In ' + region + ' By Year'
+        pyramid_chart.x_labels = sortedYears
+        for year in sortedYears:
+            cityPopMale = 0
+            cityPopFemale = 0
+            for city in cityInRegion:
+                pop_Male = cPopMale[year][city.decode('utf-8')]
+                cityPopMale = cityPopMale + pop_Male
+                pop_Female = cPopFemale[year][city.decode('utf-8')]
+                cityPopFemale = cityPopFemale + pop_Female
+        regionPopSet.append(cityPopMale)
+        regionPopSet.append(cityPopFemale)
+    for nameInGender, popSet in zip(regionNameInGender, cityPopSet):
+        pyramid_chart.add(nameInGender.decode('utf-8'), popSet)
+    pyramid_chart.render_to_file("graphs\\RegionPopulationPyramidGraph" + ".svg")
