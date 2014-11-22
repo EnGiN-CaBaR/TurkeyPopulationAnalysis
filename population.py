@@ -18,6 +18,7 @@ except Exception:
 
 
 """
+To run local server use this module.
 Creating an instance of Flask class. The first argument 
 is the name of the application’s module or package that is
 for us our main method

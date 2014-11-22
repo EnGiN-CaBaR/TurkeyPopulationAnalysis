@@ -1,11 +1,12 @@
 ﻿import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from turkeyPopulationData import *
 try:
     import pygal as pg
 except:
-    print "Ypu should first install Pygal"
-from turkeyPopulationData import *
+    print "Ypu should first install pg"
+
 
 
 # coding=utf-8
@@ -57,7 +58,7 @@ def plotTurkeyPopulationByYear(data, years):
 def plotTopFiveCityPopulationGrowth(data, years):
     """
     This function plots Top Five City Population rate by years and save it as a svg 
-    file using pygal. 
+    file using pg. 
     Data is our data frame object which has city data. In function this data is 
     sorted according to 1965.
     years is a list contains years data.
@@ -77,7 +78,7 @@ def plotTopFiveCityPopulationGrowth(data, years):
     
 def plotHorizontalBarTopFive(data, years):
     """
-    This function plot Top Five City Center Population and save it as a svg file using pygal.
+    This function plot Top Five City Center Population and save it as a svg file using pg.
     Data is our data frame object which has city data. In function this data is sorted
     according to 1965.
     years is a list contains years data.
@@ -96,7 +97,7 @@ def plotHorizontalBarTopFive(data, years):
 def plotLineChartTopTen(data, years):
     """
     This function plot line graph Top ten City Center Population and save 
-    it as a svg file using pygal.
+    it as a svg file using pg.
     Data is our data frame object which has city data. In function this data is sorted
     according to 1965.
     years is a list contains years data.
@@ -114,7 +115,7 @@ def plotLineChartTopTen(data, years):
 def plotLineChartTopTenRural(data, years):
     """
     This function plot line graph Top ten rural area Population and save 
-    it as a svg file using pygal.
+    it as a svg file using pg.
     Data is our data frame object which has city data. In function this data is sorted
     according to 1965.
     years is a list contains years data.
@@ -133,7 +134,7 @@ def plotLineChartTopTenRural(data, years):
 def plotPyramidChart(cPopMale, cPopFemale, yKeys, cityRegion):
     """
     This function plot pyramid chart belongs cities' male and female number by year 
-    for every geographic region which has and save it as a svg file using pygal.
+    for every geographic region which has and save it as a svg file using pg.
     cPopMale is our data frame object which has city male data. 
     cPopFeMale is our data frame object which has city female data.
     cityRegion is our dictionary object which has region keys and cities' value as a list.
@@ -170,7 +171,7 @@ def plotPyramidChart(cPopMale, cPopFemale, yKeys, cityRegion):
 def plotRegionOverTotalPopulationInYears(cPopMale, cPopFemale, yKeys, cityRegion):
     """
     This function plot pyramid chart belongs geographic regions male and female number by year 
-    which has and save it as a svg file using pygal.
+    which has and save it as a svg file using pg.
     cPopMale is our data frame object which has city male data. 
     cPopFeMale is our data frame object which has city female data.
     cityRegion is our dictionary object which has region keys and cities' value as a list.
@@ -215,7 +216,7 @@ def plotTopFiveCityUrbanPopulationPercentage(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Top-5 Urban Population Percentage'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -228,7 +229,7 @@ def plotTopFiveCityVillagePopulationPercentage(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Top-5 Rural Population Percentage'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -241,7 +242,7 @@ def plotTopFiveUrbanizedCityUrbanizationPercentage(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Urbanization Percentage of Top-5 Urbanized Cities'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -254,7 +255,7 @@ def plotLeastFiveUrbanizedCityUrbanizationPercentage(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Urbanization Percentage of Least-5(1965) Urbanized Cities'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -267,7 +268,7 @@ def plotTurkeyUrbanizationPercentage(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Urbanization Percentage of Turkey'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -275,17 +276,17 @@ def plotTurkeyUrbanizationPercentage(data, years):
     dot_chart.render_to_file('GR5_TurkeyUrbanizationPercentage.svg')   
 
 # GR 6 Urban Population Growth of Top-5 cities 
-def plotTopFiveCityPopulationGrowth(data, years):
-    sorted_data = data.fillna(0).sort(years, ascending=False).head(5)
+def plotTopTenCityPopulationGrowth(data, years):
+    sorted_data = data.fillna(0).sort(years, ascending=False).head(10)
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Dot(x_label_rotation=50)
+    dot_chart = pg.Dot(x_label_rotation=50)
     dot_chart.title = 'Cities with Top-5 Urban Population'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
         dot_chart.add(city, sorted_data.ix[city])
-    dot_chart.render_to_file('GR6_Top5UrbanPopulation.svg')   
+    dot_chart.render_to_file('GR6_Top10UrbanPopulation.svg')   
     
 # GR 7 Male - Female Ratio in Total Population
 def plotDataMaleFemalePercentBAR(data, data1, data2, years):
@@ -305,7 +306,7 @@ def plotDataMaleFemalePercentBAR(data, data1, data2, years):
     sorted_data_female_rows = list(sorted_data_female.index.values)
  
    
-    bar_chart = pygal.Line()
+    bar_chart = pg.Line()
     bar_chart.title = 'Male - Female Ratio in Turkey Population'
     bar_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -320,7 +321,7 @@ def plotTopFiveVillagePopulationGrowth(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Dot(x_label_rotation=50)
+    dot_chart = pg.Dot(x_label_rotation=50)
     dot_chart.title = 'Cities with Top-5 Rural Population'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -333,7 +334,7 @@ def plotTop10UrbanFemalePercent(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Top-10 Urban Female Percentage (1965)'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -346,7 +347,7 @@ def plotTop10VillageFemalePercent(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
 
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Top-10 Urban Male Percentage (1965)'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -360,7 +361,7 @@ def plotTop10UrbanMalePercent(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
         
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Top-10 Urban Male Percentage (1965)'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -373,7 +374,7 @@ def plotTop10VillageMalePercent(data, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
        
-    dot_chart = pygal.Line()
+    dot_chart = pg.Line()
     dot_chart.title = 'Top-10 Rural Male Percentage (1965)'
     dot_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:
@@ -385,7 +386,7 @@ def plotTop20UrbanFemalePercentageChange(data):
     datah = data.head(20)
     sorted_data_rows = datah.keys()  
     print datah
-    bar_chart = pygal.HorizontalBar()
+    bar_chart = pg.HorizontalBar()
     bar_chart.title = 'Top-20 Cities by Percentage of Urban Female Population Change'
     for city in sorted_data_rows:
         bar_chart.add(city, datah.ix[city])
@@ -396,7 +397,7 @@ def plotTop20VillageFemalePercentageChange(data):
     datah = data.head(20)
     sorted_data_rows = datah.keys()  
     print datah
-    bar_chart = pygal.HorizontalBar()
+    bar_chart = pg.HorizontalBar()
     bar_chart.title = 'Top-20 Cities by Percentage of Rural Female Population Change'
     for city in sorted_data_rows:
         bar_chart.add(city, datah.ix[city])
@@ -408,7 +409,7 @@ def plotTop20UrbanMalePercentageChange(data):
     datah = data.head(20)
     sorted_data_rows = datah.keys()  
     print datah
-    bar_chart = pygal.HorizontalBar()
+    bar_chart = pg.HorizontalBar()
     bar_chart.title = 'Top-20 Cities by Percentage of Urban Male Population Change'
     for city in sorted_data_rows:
         bar_chart.add(city, datah.ix[city])
@@ -419,7 +420,7 @@ def plotTop20VillageMalePercentageChange(data):
     datah = data.head(20)
     sorted_data_rows = datah.keys()  
     print datah
-    bar_chart = pygal.HorizontalBar()
+    bar_chart = pg.HorizontalBar()
     bar_chart.title = 'Top-20 Cities by Percentage of Rural Male Population Change'
     for city in sorted_data_rows:
         bar_chart.add(city, datah.ix[city])
@@ -431,7 +432,7 @@ def plotPopulationTrend(data, data1, data2, data3, data4, years):
     sorted_data_columns = list(sorted_data.columns.values)
     sorted_data_rows = list(sorted_data.index.values)
        
-    bar_chart = pygal.StackedBar(fill=True)
+    bar_chart = pg.StackedBar(fill=True)
     bar_chart.title = 'Male / Female Population Trend'
     bar_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:   
@@ -441,7 +442,7 @@ def plotPopulationTrend(data, data1, data2, data3, data4, years):
     bar_chart.render_to_file('GR17_TotalPopulationMFTrend.svg')   
 
  # GR 18 Urban Rural Total Population Trend
-    bar_chart = pygal.StackedBar(fill=True)
+    bar_chart = pg.StackedBar(fill=True)
     bar_chart.title = 'Urban / Rural Population Trend'
     bar_chart.x_labels = sorted_data_columns
     for city in sorted_data_rows:   
@@ -459,7 +460,7 @@ def plotPopulationPrediction(data, data1, years):
        
     predicted_data = data1
 
-    bar_chart = pygal.Bar(fill=True)
+    bar_chart = pg.Bar(fill=True)
     bar_chart.title = 'Population Prediction'
     bar_chart.x_labels = real_data_columns
     for city in real_data_rows:   
