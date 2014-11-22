@@ -15,16 +15,36 @@ try:
     from flask.templating import render_template
 except Exception:
     print "You should install Flask microframework"
- 
+
+
+"""
+Creating an instance of Flask class. The first argument 
+is the name of the application’s module or package that is
+for us our main method
+"""
 app = Flask(__name__)
 
 @app.route('/index', methods=['GET'])
 def index():
+    """
+    This is a restful web service. When user open the index link from the browser,
+    this function is called and render index.html file. In technically when this 
+    link is clicked browser makes an http get request and takes index.html as response.
+    """
     if request.method == 'GET':
         return render_template('index.html')
     
 @app.route('/totalturkeypopulation', methods=['GET', 'POST'])
 def getTurkeyPopulation():
+    """
+    This is a restful web service. When user open the totalturkeypopulation page from the browser,
+    this function is called and render totalpopulation.html file. After webpage rendered user can
+    make request with page element to view TurkeyPopulation changing by years, for example.
+    In technically when this link is clicked browser makes an http get request and takes 
+    totalpopulation.html as response. User can choose year to view TurkeyPopulation changing by years
+    which is http post request and this request gets json object. This json object has three element
+    total, center and village population of cities. 
+    """
     if request.method == 'GET':
         return render_template('totalpopulation.html')
     else:
@@ -67,6 +87,15 @@ def getTurkeyPopulation():
     
 @app.route('/turkeymalefemalemap', methods=['GET', 'POST'])
 def getTurkeymalefemalemapPopulation():
+    """
+    This is a restful web service. When user open the turkeymalefemalemap page from the browser,
+    this function is called and render turkeymalefemalemap.html file. After webpage rendered user can
+    make request with page element to view Turkey Male-Female Population changing by years, for example.
+    In technically when this link is opened by browser makes an http get request and takes 
+    totalpopulation.html as response. User can choose year to view Turkey Male Female Population changing by years
+    which is http post request and this request gets json object. This json object has three element
+    male, female and difference population of cities. 
+    """
     if request.method == 'GET':
         return render_template('turkeymalefemalemap.html')
     else:
@@ -110,6 +139,15 @@ def getTurkeymalefemalemapPopulation():
 
 @app.route('/urbanizationinturkey', methods=['GET', 'POST'])
 def getUrbanizationInturkey():
+    """
+    This is a restful web service. When user open the urbanizationinturkey page from the browser,
+    this function is called and render urbanizationinturkey.html file. After webpage rendered user can
+    make request with page element to view Urbanization changing by years, for example.
+    In technically when this link is opened by browser makes an http get request and takes 
+    urbanizationinturkey.html as response. User can choose year to view Urbanization changing by years
+    which is http post request and this request gets json object. This json object has three element
+    city, village and urbanization population of cities. 
+    """
     if request.method == 'GET':
         return render_template('urbanizationinturkey.html')
     else:
@@ -150,6 +188,13 @@ def getUrbanizationInturkey():
 
             
 if __name__ == "__main__":
+    """
+    Program is executed from main method by interpreter. When program executed
+    reads datas from excel files, platefile and cityAreafile. After that we run
+    local server with run() method. User can reach server with server's ip adress
+    default port is 5000 and first page is "/index". To reach from local, 
+    localhost:5000/index is welcome page.
+    """
     fs = f.find_file_names('years', '*.xlsx')
     data = f.get_names_data(fs, 'xlsx')
     yKeys = data.keys()
@@ -157,43 +202,4 @@ if __name__ == "__main__":
     
     plate = f.getPlate()
     cityArea = f.getArea()
-    #app.run(host='0.0.0.0', debug=True)
-    
-#     fs = find_file_names('years', '*.xlsx')
-#     data = get_names_data(fs, 'xlsx')
-#     yKeys = data.keys()
-#     yKeys.sort()
-    
-#########################################################
-#     ccp = getCityCenterPopulationsByYears(data, ['All'], yKeys)
-#     pg.plotHorizontalBarTopFive(ccp, yKeys)
-#     pg.plotLineChartTopTen(ccp, yKeys)
-##########################################################
-
-##########################################################
-#     ccpr = getVillagePopulationsByYears(data, ['All'], yKeys)
-#     pg.plotLineChartTopTenRural(ccpr, yKeys)
-##########################################################
-#     cpm = getCityPopulationsByYearsInMale(data, ['All'], yKeys)
-#     cpf = getCityPopulationsByYearsInFemale(data, ['All'], yKeys)
-#     pg.plotPieChartTopFiveCity(cpm, cpf, yKeys)
-
-###########################################################
-#     regions = find_file_names('cityRegions', '*.txt')
-#     cityRegion = getRegionFiles(regions)
-#     cpm = getCityPopulationsByYearsInMale(data, ['All'], yKeys)
-#     cpf = getCityPopulationsByYearsInFemale(data, ['All'], yKeys)
-#     pg.plotPyramidChart(cpm, cpf, yKeys, cityRegion)
-############################################################
-
-###########################################################
-    regions = f.find_file_names('cityRegions', '*.txt')
-    cityRegion = f.getRegionFiles(regions)
-    cpm = tpd.getCityPopulationsByYearsInMale(data, ['All'], yKeys)
-    cpf = tpd.getCityPopulationsByYearsInFemale(data, ['All'], yKeys)
-    pg.plotRegionOverTotalPopulationInYears(cpm, cpf, yKeys, cityRegion)
-############################################################
-
-
-#     turkeyPop = getTurkeyPopulationsByYears(data, yKeys)
-#     pg.plotRegionOverTotalPopulationInYears(turkeyPop)
+    app.run(host='0.0.0.0', debug=True)
